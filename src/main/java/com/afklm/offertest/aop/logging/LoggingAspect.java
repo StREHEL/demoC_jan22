@@ -5,11 +5,15 @@ import java.util.Arrays;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 
+@Component
+@Aspect
 public class LoggingAspect {
 
     private final Environment env;
@@ -18,23 +22,16 @@ public class LoggingAspect {
         this.env = env;
     }
 
-    /**
-     * Pointcut that matches all repositories, services and Web REST endpoints.
-     */
-    @Pointcut(
-        "within(@org.springframework.stereotype.Repository *)" +
-        " || within(@org.springframework.stereotype.Service *)" +
-        " || within(@org.springframework.web.bind.annotation.RestController *)"
-    )
-    public void springBeanPointcut() {
-        // Method is empty as this is just a Pointcut, the implementations are in the advices.
-    }
 
     /**
-     * Pointcut that matches all Spring beans in the application's main packages.
+     * Pointcut that matches all Spring services and Web REST endpoints.
      */
-    @Pointcut("within(com.afklm.offertest.repository..*)" + " || within(com.afklm.offfertest.service..*)" + " || within(com.afklm.offertest.controller..*)")
-    public void applicationPackagePointcut() {
+//    @Pointcut("within(com.afklm.offertest.repository..*)" + " || within(com.afklm.offfertest.service..*)" + " || within(com.afklm.offertest.controller..*)")
+    @Pointcut(
+    		"execution (* com.afklm.offertest.controller..*.*(..))" +
+			" || execution (* com.afklm.offertest.service..*.*(..))"
+    		)
+    public void controllerlOrServicePointcut() {
         // Method is empty as this is just a Pointcut, the implementations are in the advices.
     }
     
@@ -56,7 +53,7 @@ public class LoggingAspect {
      * @return result.
      * @throws Throwable throws {@link IllegalArgumentException}.
      */
-    @Around("applicationPackagePointcut() && springBeanPointcut()")
+    @Around("controllerlOrServicePointcut()")
     public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
         Logger log = logger(joinPoint);
         if (log.isDebugEnabled()) {
