@@ -1,5 +1,8 @@
 package com.afklm.offertest.aop.logging;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalField;
 import java.util.Arrays;
 
 import org.aspectj.lang.JoinPoint;
@@ -59,10 +62,15 @@ public class LoggingAspect {
         if (log.isDebugEnabled()) {
             log.debug("Enter: {}() with argument[s] = {}", joinPoint.getSignature().getName(), Arrays.toString(joinPoint.getArgs()));
         }
+        
+        Instant chronoStart = Instant.now();
+        
         try {
             Object result = joinPoint.proceed();
+            long execDuration = ChronoUnit.MILLIS.between(chronoStart, Instant.now());
             if (log.isDebugEnabled()) {
                 log.debug("Exit: {}() with result = {}", joinPoint.getSignature().getName(), result);
+                log.debug("'{}' method exec. duration : {} ms.", joinPoint.getSignature().getName(), execDuration);
             }
             return result;
         } catch (IllegalArgumentException e) {
