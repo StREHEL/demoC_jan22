@@ -19,7 +19,7 @@ import lombok.ToString;
 @Table(name = "user")
 @Entity
 @Getter
-//@Setter
+@Setter
 @ToString
 public class User {
 	
@@ -56,53 +56,5 @@ public class User {
     @Column(name = "gender", length = 1)
     //TODO : Create a @Gender annotation in order to validate gender code inputs.
     private Character gender = null;
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void setBirthDate(LocalDate birthDate) {
-		this.birthDate = birthDate;
-	}
-
-	public void setResidCountryCode(String residCountryCode) {
-		this.residCountryCode = residCountryCode;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	public void setGender(Character gender) {
-		this.gender = gender;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public LocalDate getBirthDate() {
-		return birthDate;
-	}
-
-	public String getResidCountryCode() {
-		return residCountryCode;
-	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public Character getGender() {
-		return gender;
-	}
     
 }

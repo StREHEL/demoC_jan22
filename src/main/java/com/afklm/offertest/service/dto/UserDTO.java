@@ -1,6 +1,11 @@
 package com.afklm.offertest.service.dto;
 
 import com.afklm.offertest.entity.User;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.time.LocalDate;
 
 import javax.validation.constraints.Size;
@@ -8,6 +13,9 @@ import javax.validation.constraints.Size;
 /**
  * A DTO representing a user, with only the public attributes.
  */
+@Getter
+@Setter
+@ToString
 public class UserDTO {
 
     private Long id;
@@ -40,65 +48,4 @@ public class UserDTO {
         this.gender = user.getGender();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public LocalDate getBirthDate() {
-		return birthDate;
-	}
-
-	public void setBirthDate(LocalDate birthDate) {
-		this.birthDate = birthDate;
-	}
-
-	
-	public java.lang.Character getGender() {
-		return gender;
-	}
-
-	public void setGender(java.lang.Character gender) {
-		this.gender = gender;
-	}
-
-	public String getResidCountryCode() {
-		return residCountryCode;
-	}
-
-	public void setResidCountryCode(String residCountryCode) {
-		this.residCountryCode = residCountryCode;
-	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	// prettier-ignore
-    @Override
-    public String toString() {
-        return "UserDTO{" +
-            "id='" + id + '\'' +
-            ", login='" + name + '\'' +
-            ", birthDate='" + birthDate + '\'' +
-            ", coutry_ISO='" + residCountryCode + '\'' +
-            ", phoneNumber='" + phoneNumber + '\'' +
-            ", gender='" + gender + '\'' +
-            "}";
-    }
 }
